@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var port = process.env.PORT || 8080;
+var url = 'mongodb://127.0.0.1/hygeia';
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -20,12 +21,20 @@ Authorization');
 
 app.use(morgan('dev'));
 
+mongoose.connect(url);
+mongoose.connection.on('connected', function() {
+    console.log('Mongoose default connection open to ' + url);
+});
+mongoose.connection.on('error', function(err) {
+    console.log('Mongoose default connection error: ' + err);
+});
+
 // Routes
 app.get('/', function(req, res) {
     res.send('Welcome to the home page!');
 });
 
-var apiRouter = express.Router();
+var apiRouter = require('./app/routes/api');
 
 apiRouter.get('/', function(req, res) {
     res.json({
