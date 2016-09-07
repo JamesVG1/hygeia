@@ -20,9 +20,10 @@ app.use(function(req, res, next) {
     next();
 });
 
+// log all request to console
 app.use(morgan('dev'));
 
-// connect to DB
+// connect to database
 mongoose.connect(url);
 mongoose.connection.on('connected', function() {
     console.log('Mongoose default connection open to ' + url);

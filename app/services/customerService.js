@@ -46,6 +46,8 @@ exports.save = function(req, res, errback, callback) {
                         message: 'Internal server error'
                     });
                 } else if (hash) {
+
+                    // create new user
                     Customer.create({
                         email: email,
                         password: hash
@@ -64,6 +66,7 @@ exports.save = function(req, res, errback, callback) {
     });
 }
 
+// ======= READ ONE =======
 exports.listOne = function(req, res, errback, callback) {
 
     var id = req.params.id;
@@ -79,6 +82,7 @@ exports.listOne = function(req, res, errback, callback) {
     });
 }
 
+// ======= READ =======
 exports.list = function(req, res, errback, callback) {
     Customer.find(function(err, users) {
         if (err) {
@@ -90,6 +94,7 @@ exports.list = function(req, res, errback, callback) {
     });
 }
 
+// ======= UPDATE =======
 // exports.put = function(req, res, errback, callback) {
 //
 //     var id = req.params.id;
@@ -107,6 +112,7 @@ exports.list = function(req, res, errback, callback) {
 //         });
 // }
 
+// ======= DELETE =======
 exports.delete = function(req, res, errback, callback) {
 
     var id = req.params.id;
