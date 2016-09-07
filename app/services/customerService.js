@@ -2,11 +2,11 @@ var Customer = require('../models/customerModel');
 var bcrypt = require('bcrypt-nodejs');
 
 // ======= CREATE =======
-exports.save = function(req, res) {
+exports.save = function(req, res, errback, callback) {
 
     // declare variables
-    var email = req.body.email;
-    var password = req.body.password;
+    email = req.body.email;
+    password = req.body.password;
 
     // request flow control
     if ((!('email' in req.body)) || email === '') {
@@ -35,36 +35,57 @@ exports.save = function(req, res) {
 
     // salt and hash
     bcrypt.genSalt(10, function(err, salt) {
-            if (err) {
-                return res.status(500).json({
-                    message: 'Internal server error'
-                });
-            } else if (salt) {
-                bcrypt.hash(password, salt, null, function(err, hash) {
-                        if (err) {
-                            return res.status(500).json({
-                                message: 'Internal server error'
-                            });
-                        } else if (hash) {
-                            Customer.create({
-                                email: email,
-                                password: hash
-                            }, function(err, user) {
-                                if (err) {
-                                    return res.status(500).json({
-                                        message: 'Internal server error'
-                                    });
-                                } else if (user) {
-                                    res.json(user);
-                                }
-                            }));
-                    }
-
-                }
+        if (err) {
+            return res.status(500).json({
+                message: 'Internal server error'
             });
+        } else if (salt) {
+            bcrypt.hash(password, salt, null, function(err, hash) {
+                if (err) {
+                    return res.status(500).json({
+                        message: 'Internal server error'
+                    });
+                } else if (hash) {
+                    Customer.create({
+                        email: email,
+                        password: hash
+                    }, function(err, user) {
+                        if (err) {
+                            errback(err);
+                            return;
+                        } else if (user) {
+                            callback(user);
+                        }
+                    });
+                }
+
+            });
+        }
     });
 }
 
-exports.list = function(req, res) {
+exports.listOne = function(req, res, errback, callback) {
 
+    var id = req.params.id;
+
+    Customer.findOne({
+        _id: id
+    }, function(err, user) {
+        if (err) {
+            errback(err);
+        } else if (user) {
+            callback(user);
+        }
+    });
+}
+
+exports.list = function(req, res, errback, callback) {
+    Customer.find(function(err, users) {
+        if (err) {
+            errback(err);
+            return;
+        } else if (users) {
+            callback(users);
+        }
+    });
 }

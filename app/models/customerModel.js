@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Schema = mongoose.schema;
+var Schema = mongoose.Schema;
 
 var CustomerSchema = new Schema({
     email: {
@@ -15,12 +15,10 @@ var CustomerSchema = new Schema({
         select: false
     },
     firstName: {
-        type: String,
-        required: true
+        type: String
     },
     lastName: {
-        type: String,
-        required: true
+        type: String
     },
     birthday: {
         type: Date,
@@ -28,8 +26,7 @@ var CustomerSchema = new Schema({
     },
     address: {
         streetLineOne: {
-            type: String,
-            required: true
+            type: String
         },
         streetLineTwo: {
             type: String
@@ -46,3 +43,5 @@ var CustomerSchema = new Schema({
         select: false
     }
 });
+
+module.exports = mongoose.model('Customer', CustomerSchema);
