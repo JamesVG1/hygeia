@@ -95,22 +95,23 @@ exports.list = function(req, res, errback, callback) {
 }
 
 // ======= UPDATE =======
-// exports.put = function(req, res, errback, callback) {
-//
-//     var id = req.params.id;
-//
-//     Customer.findOneAndUpdate({
-//                 _id: id
-//             }, UPDATE GOES HERE
-//         },
-//         function(err, user) {
-//             if (err) {
-//                 errback(err);
-//             } else if (user) {
-//                 callback(user);
-//             }
-//         });
-// }
+exports.put = function(req, res, errback, callback) {
+
+    var id = req.params.id;
+    var userUpdate = req.body;
+
+    Customer.findOneAndUpdate({
+            _id: id
+        }, userUpdate,
+        function(err, user) {
+            if (err) {
+                errback(err);
+            } else if (user) {
+                // returns old user data
+                callback(user);
+            }
+        });
+}
 
 // ======= DELETE =======
 exports.delete = function(req, res, errback, callback) {

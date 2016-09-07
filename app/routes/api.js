@@ -31,7 +31,11 @@ router.get('/customer', function(req, res) {
 
 // ======= UPDATE =======
 router.put('/customer/:id', function(req, res) {
-
+    CustomerService.put(req, res, function(err) {
+        res.status(400).json(err);
+    }, function(user) {
+        res.status(201).json(user);
+    });
 });
 
 // ======= DELETE =======
