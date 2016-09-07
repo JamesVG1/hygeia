@@ -89,3 +89,34 @@ exports.list = function(req, res, errback, callback) {
         }
     });
 }
+
+// exports.put = function(req, res, errback, callback) {
+//
+//     var id = req.params.id;
+//
+//     Customer.findOneAndUpdate({
+//                 _id: id
+//             }, UPDATE GOES HERE
+//         },
+//         function(err, user) {
+//             if (err) {
+//                 errback(err);
+//             } else if (user) {
+//                 callback(user);
+//             }
+//         });
+// }
+
+exports.delete = function(req, res, errback, callback) {
+
+    var id = req.params.id;
+
+    Customer.findOneAndRemove(id, function(err, user) {
+        if (err) {
+            errback(err);
+            return;
+        } else if (user) {
+            callback(user);
+        }
+    });
+}

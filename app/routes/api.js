@@ -31,7 +31,11 @@ router.put('/customer/:id', function(req, res) {
 });
 
 router.delete('/customer/:id', function(req, res) {
-
+    CustomerService.delete(req, res, function(err) {
+        res.status(400).json(err);
+    }, function(user) {
+        res.status(201).json(user);
+    });
 });
 
 module.exports = router;
