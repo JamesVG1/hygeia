@@ -1,0 +1,23 @@
+{
+  "name": "hygeia",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "benhbaik <benhbaik@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/benhbaik/hygeia",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/assets/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "angular-animate": "^1.5.8"
+  }
+}
